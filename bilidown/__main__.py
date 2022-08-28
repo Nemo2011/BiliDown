@@ -903,6 +903,7 @@ def _help():
     print("参数:   --dump-message            将下载的信息输出到文件 bilidown.json")
     print("参数:   --debug                   显示错误详细信息")
     print("参数:   --license                 显示 LICENSE")
+    print("参数:   -v                        版本")
     print("参数:   -h                        帮助")
     print()
     print(
@@ -2435,6 +2436,9 @@ def _download_user_space(obj: user.User, now_file_name: str):
 
 def _parse_args():
     global _require_file_type, DIC, PATH, CREDENTIAL, FFMPEG, PROXY, DEFAULT_SETTINGS, DOWNLOAD_DANMAKUS, DOWNLOAD_LIST
+
+    if "-v" in sys.argv:
+        print(__version__)
 
     if "--license" in sys.argv:
         print(__license__)
