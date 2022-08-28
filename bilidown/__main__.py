@@ -680,7 +680,7 @@ the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
 """
-__version__ = "2022.08.28"
+__version__ = "1.1.0"
 __author__ = "Nemo2011"
 
 import copy
