@@ -1,0 +1,3 @@
+keyboard
+bilibili-api-python
+colorama
