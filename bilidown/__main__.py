@@ -680,7 +680,7 @@ the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
 """
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 __author__ = "Nemo2011"
 
 import copy
@@ -2438,7 +2438,8 @@ def _parse_args():
     global _require_file_type, DIC, PATH, CREDENTIAL, FFMPEG, PROXY, DEFAULT_SETTINGS, DOWNLOAD_DANMAKUS, DOWNLOAD_LIST
 
     if "-v" in sys.argv:
-        print(__version__)
+        print(Fore.BLACK + Back.WHITE + "BiliDown 版本" +  __version__ + Style.RESET_ALL)
+        exit()
 
     if "--license" in sys.argv:
         print(__license__)
