@@ -67,6 +67,49 @@ pip install bilidown
 
 ## Usage
 
+```
+bilidown -h
+```
+<details>
+<summary></summary>
+
+```
+使用方法: bilidown "https://bilibili.com/.../"
+注意: 链接为第一个参数, 允许多个链接, 请使用 "|" 隔开每一个链接
+参数:   --out/-o                  文件名(默认为 "#default")                                   "a.mp4"
+注意: 允许多个输出文件名, 请使用 "|" 隔开每一个输出文件名
+参数:   --dic/-d                  下载至文件夹(默认为 "default")                              "~/Desktop"
+参数:   --proxy                   代理                                                        "https://user:password@your-proxy.com"
+参数:   --ffmpeg                  ffmpeg 地址(如果没有 ffmpeg 可以使用 "#none")               "ffmpeg"
+参数:   --sessdata                Cookies 中 SESSDATA 的值, 用于下载会员专享、高清晰度        "SECRET绝密SECRET绝密"
+参数:   --danmakus-settings       是否下载弹幕                                                "true"
+注意: ( true 下载 | false 不下载 | only 只下载弹幕 ) 
+参数:   --default-settings        下载时的默认设置                                            "128|hev|30216|markdown|1"
+注意: 格式为      (视频清晰度 | 视频编码 | 音频清晰度 | 专栏格式 | 用户空间下载资源)
+注意: 视频分辨率  (16 (360P) | 32 (480P) | 64 (720P60) | 80 (1080P) | 112 (1080P+) | 116 (1080P60) | 120 (4K) | 125 (HDR) | 126 (杜比视界))) 可以为空
+注意: 视频编码    (hev HEVC(H.265) | avc AVC(H.264) ｜ av01 AV1)) 可以为空
+注意: 音频音质编码(30216 低品质 | 30232 中等品质 ｜ 30280 高品质)) 可以为空
+注意: 专栏格式    (Markdown | JSON)) 可以为空
+注意: 空间资源编码(1 视频 | 2 音频 ｜ 3 专栏)) 可以为空
+参数:   --disable-filetype-check  忽略自动检查文件后缀
+参数:   --download-list           下载视频、音频对应的列表(番剧所有剧集、视频所有分 P、歌单所有音频)
+参数:   --dump-message            将下载的信息输出到文件 bilidown.json
+参数:   --debug                   显示错误详细信息
+参数:   --license                 显示 LICENSE
+参数:   -h                        帮助
+
+参数 --out/-o 允许使用自定义格式, 如 "{title} - {bvid} - P{p} - {owner} - {uid}" 请务必使用小写
+| {bvid}         -> BVID            | {aid}             -> AID            | {title}          -> 标题             | {p}             -> 分 P        |
+| {owner}        -> UP              | {uid}             -> UP uid         | {bangumi_epid}   -> 番剧 epid        | {bangumi_name}  -> 番剧名      |
+| {bangumi_ep}   -> 番剧第几集      | {cheese_epid}     -> 课程 epid      | {cheese_name}    -> 课程名           | {cheese_ep}     -> 课程第几集  |
+| {bangumi_id}   -> 番剧 season_id  | {cheese_id}       -> 课程 season_id | {cvid}           -> 专栏 cvid        | {live_id}       -> 直播间 id   |
+| {auid}         -> 音频 auid       | {audio_list_name} -> 歌单名         | {audio_list_cnt} -> 歌单的第几个音频 | {audio_list_id} -> 歌单 auid   |
+在参数最后加上 "#" 表示所有视频均使用此格式, 如 "{bvid}#"
+使用 "{#" 和 "}#" 表示 "{" 和 "}"
+```
+
+</details>
+
 下载 `字幕君交流场所`(`BV1xx411c7mD` & `av2`): 
 
 ```
