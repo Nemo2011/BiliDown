@@ -975,12 +975,13 @@ def _download_video(obj: video.Video, now_file_name: str):
             else:
                 try:
                     download_p1 = int(p)
+                    download_p1 -= 1
                 except:
                     pass
         if download_p1 == -1:
             print(Fore.GREEN + f"INF: 已选择所有分 P")
         else:
-            print(Fore.GREEN + f"INF: 已选择 {p}, 分 p 编号 {sync(obj.get_cid(int(p) - 1))}")
+            print(Fore.GREEN + f"INF: 已选择 P{p}, 分 p 编号 {sync(obj.get_cid(int(p) - 1))}")
     else:
         download_p1 = 0
     if download_p1 > -1:
@@ -1104,6 +1105,17 @@ def _download_video(obj: video.Video, now_file_name: str):
                         .replace("{#", "{")
                         .replace("#}", "}")
                     )
+                
+                RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
                 RPATH = os.path.join(DIC, RNAME)
                 if not os.path.exists(DIC):
                     os.mkdir(DIC)
@@ -1136,7 +1148,18 @@ def _download_video(obj: video.Video, now_file_name: str):
                         .replace("{#", "{")
                         .replace("#}", "}")
                     )
+                RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
                 RPATH = os.path.join(DIC, RNAME)
+                
                 if not os.path.exists(DIC):
                     os.mkdir(DIC)
                 PATH_FLV = RPATH.rstrip(".mp4") + ".flv"
@@ -1299,6 +1322,16 @@ def _download_video(obj: video.Video, now_file_name: str):
                         .replace("{#", "{")
                         .replace("#}", "}")
                     )
+                RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
                 RPATH = os.path.join(DIC, RNAME)
                 if not os.path.exists(DIC):
                     os.mkdir(DIC)
@@ -1440,7 +1473,18 @@ def _download_episode(obj: bangumi.Episode, now_file_name: str):
                     .replace("{#", "{")
                     .replace("#}", "}")
                 )
+            RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
             RPATH = os.path.join(DIC, RNAME)
+            
             if not os.path.exists(DIC):
                 os.mkdir(DIC)
             if os.path.exists(RPATH):
@@ -1475,7 +1519,18 @@ def _download_episode(obj: bangumi.Episode, now_file_name: str):
                     .replace("{#", "{")
                     .replace("#}", "}")
                 )
+            RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
             RPATH = os.path.join(DIC, RNAME)
+            
             if not os.path.exists(DIC):
                 os.mkdir(DIC)
             print(Fore.GREEN + f"INF: 开始下载视频({title} 第{epcnt}集)")
@@ -1624,7 +1679,18 @@ def _download_episode(obj: bangumi.Episode, now_file_name: str):
                     .replace("{#", "{")
                     .replace("#}", "}")
                 )
+            RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
             RPATH = os.path.join(DIC, RNAME)
+            
             if not os.path.exists(DIC):
                 os.mkdir(DIC)
             print(Fore.GREEN + f"INF: 开始下载视频({title} 第{epcnt}集)")
@@ -1763,7 +1829,18 @@ def _download_cheese_video(obj: cheese.CheeseVideo, now_file_name: str):
                     .replace("{#", "{")
                     .replace("#}", "}")
                 )
+            RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
             RPATH = os.path.join(DIC, RNAME)
+            
             if not os.path.exists(DIC):
                 os.mkdir(DIC)
             if os.path.exists(RPATH):
@@ -1797,7 +1874,18 @@ def _download_cheese_video(obj: cheese.CheeseVideo, now_file_name: str):
                     .replace("{#", "{")
                     .replace("#}", "}")
                 )
+            RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
             RPATH = os.path.join(DIC, RNAME)
+            
             if not os.path.exists(DIC):
                 os.mkdir(DIC)
             print(Fore.GREEN + f"INF: 开始下载视频({title} {epcnt})")
@@ -1944,7 +2032,18 @@ def _download_cheese_video(obj: cheese.CheeseVideo, now_file_name: str):
                     .replace("{#", "{")
                     .replace("#}", "}")
                 )
+            RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
             RPATH = os.path.join(DIC, RNAME)
+            
             if not os.path.exists(DIC):
                 os.mkdir(DIC)
             print(Fore.GREEN + f"INF: 开始下载视频({title} {epcnt})")
@@ -1997,7 +2096,18 @@ def _download_danmakus(
                     .replace("#}", "}")
                 )
             now_name = _require_ass_for_danmakus(RNAME)
+            RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
             RPATH = os.path.join(DIC, now_name)
+            
             if not os.path.exists(DIC):
                 os.mkdir(DIC)
             if os.path.exists(RPATH):
@@ -2029,7 +2139,18 @@ def _download_danmakus(
                         .replace("#}", "}")
                     )
                 now_name = _require_ass_for_danmakus(RNAME)
+                RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
                 RPATH = os.path.join(DIC, now_name)
+                
                 if not os.path.exists(DIC):
                     os.mkdir(DIC)
                 if os.path.exists(RPATH):
@@ -2059,7 +2180,18 @@ def _download_danmakus(
                     .replace("#}", "}")
                 )
             now_name = _require_ass_for_danmakus(RNAME)
+            RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
             RPATH = os.path.join(DIC, now_name)
+            
             if not os.path.exists(DIC):
                 os.mkdir(DIC)
             if os.path.exists(RPATH):
@@ -2133,7 +2265,18 @@ def _download_audio(obj: audio.Audio, now_file_name: str):
             RNAME = RNAME.replace("{aid}", str(ainfo["aid"])).replace(
                 "{bvid}", str(ainfo["bvid"])
             )
+    RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
     RPATH = os.path.join(DIC, RNAME)
+    
     _download(download_url, RPATH, f"{title} - 音频 au{obj.get_auid()}")
     PATHS.append(RPATH)
 
@@ -2254,7 +2397,18 @@ async def _download_liveroom_stream(obj: live.LiveRoom, now_file_name: str):
 
     print(Fore.GREEN + f"直播间房号: {room.room_display_id}")
     print(Fore.GREEN + f"如果想要停止下载请长按 ESC 键")
+    RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
     RPATH = os.path.join(DIC, RNAME)
+    
 
     out = RPATH
     if os.path.exists(out):
@@ -2269,7 +2423,18 @@ async def _download_liveroom_stream(obj: live.LiveRoom, now_file_name: str):
 
     if FFMPEG != "#none":
         RPATH_MP4 = copy.copy(RPATH)
+        RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
         RPATH = RPATH.rstrip(".mp4") + ".flv"
+        
 
     resp = requests.get(url, proxies={"all://": PROXY}, headers=HEADERS, stream=True)
 
@@ -2333,7 +2498,18 @@ def _download_article(obj: article.Article, now_file_name: str):
             .replace("{#", "{")
             .replace("#}", "}")
         )
+    RNAME = (RNAME.replace("\\", '')
+                              .replace(r'/', '')
+                              .replace(r':', '')
+                              .replace(r'*', '')
+                              .replace(r'?', '')
+                              .replace(r'"', '')
+                              .replace(r'<', '')
+                              .replace(r'>', '')
+                              .replace(r'|', '')
+                        )
     RPATH = os.path.join(DIC, RNAME)
+    
     if not os.path.exists(DIC):
         os.mkdir(DIC)
     if MARKDOWN:
