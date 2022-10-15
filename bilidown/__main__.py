@@ -903,6 +903,7 @@ def _help():
     print("参数:   --dump-message            将下载的信息输出到文件 bilidown.json")
     print("参数:   --debug                   显示错误详细信息")
     print("参数:   --license                 显示 LICENSE")
+    print("参数:   --qrcode-login            二维码登录")
     print("参数:   -v                        版本")
     print("参数:   -h                        帮助")
     print()
