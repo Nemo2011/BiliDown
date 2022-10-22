@@ -2284,7 +2284,7 @@ def _download_audio(obj: audio.Audio, now_file_name: str):
 
 def _download_audio_list(obj: audio.AudioList, now_file_name: str):
     cnt = 0
-    print(Fore.GREEN + "INF: 歌单 amid: " + str(obj.amid))
+    print(Fore.GREEN + "INF: 歌单 amid: " + str(obj.get_amid()))
     print()
     song_list = sync(obj.get_song_list())
     name = sync(obj.get_info())["title"]
@@ -2296,7 +2296,7 @@ def _download_audio_list(obj: audio.AudioList, now_file_name: str):
             new_now_file_name = (
                 now_file_name.replace("{audio_list_name}", name)
                 .replace("{audio_list_cnt}", str(cnt))
-                .replace("{audio_list_id}", str(obj.amid))
+                .replace("{audio_list_id}", str(obj.get_amid()))
                 .replace("{#", "{")
                 .replace("#}", "}")
             )
