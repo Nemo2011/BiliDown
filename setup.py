@@ -8,7 +8,7 @@ with open("requirements.txt", "r", encoding="utf8") as f:
 
 setuptools.setup(
     name="BiliDown",
-    version="1.1.3",
+    version="1.1.4",
     license="GPLv3+",
     author="Nemo2011",
     description="哔哩哔哩命令行下载器",
