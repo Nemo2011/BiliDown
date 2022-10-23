@@ -72,6 +72,21 @@ bilidown -h
 <summary></summary>
 
 ```
+
+                                         _____
+________   ___   ___        ___          |   |
+|\   __  \ |\  \ |\  \      |\  \        |   |
+\ \  \|\ /_\ \  \\ \  \     \ \  \       |   |
+ \ \   __  \\ \  \\ \  \     \ \  \    --     --
+  \ \  \|\  \\ \  \\ \  \____ \ \  \   \       /
+   \ \_______\\ \__\\ \_______\\ \__\   \     /
+    \|_______| \|__| \|_______| \|__|    \   /
+                                          \_/
+
+BiliDown: 哔哩哔哩命令行下载器
+Powered by Bilibili API
+By Nemo2011<yimoxia@outlook.com>
+
 使用方法: bilidown "https://bilibili.com/.../"
 注意: 链接为第一个参数, 允许多个链接, 请使用 "|" 隔开每一个链接
 参数:   --out/-o                  文件名(默认为 "#default")                                   "a.mp4"
@@ -94,6 +109,8 @@ bilidown -h
 参数:   --dump-message            将下载的信息输出到文件 bilidown.json
 参数:   --debug                   显示错误详细信息
 参数:   --license                 显示 LICENSE
+参数:   --qrcode-login            二维码登录
+参数:   -v                        版本
 参数:   -h                        帮助
 
 参数 --out/-o 允许使用自定义格式, 如 "{title} - {bvid} - P{p} - {owner} - {uid}" 请务必使用小写
