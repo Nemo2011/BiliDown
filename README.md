@@ -15,9 +15,7 @@ ________   ___   ___        ___          |   |
 # **BiliDown**
 
 **Bilibili 命令行下载器**
-
-**Powered by [Bilibili API](https://github.com/Nemo2011/bilibili-api)**
-
+  
 </div>
 
 ***
