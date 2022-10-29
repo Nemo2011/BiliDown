@@ -741,6 +741,7 @@ DEFAULT_SETTINGS = {
     "at": "",
     "rt": "",
 }
+AUTO_SEARCH = True
 
 
 init(autoreset=True)
@@ -865,7 +866,7 @@ def _help():
     )
     print(Fore.RED + '注意: 允许多个输出文件名, 请使用 "|" 隔开每一个输出文件名' + Fore.RESET)
     print(
-        '参数:   --dic/-d                  下载至文件夹(默认为 "default")                              "~/Desktop"'
+        '参数:   --dir/-d                  下载至文件夹(默认为 "default")                              "~/Desktop"'
     )
     print(
         '参数:   --proxy                   代理                                                        "https://user:password@your-proxy.com"'
@@ -904,6 +905,8 @@ def _help():
     print("参数:   --debug                   显示错误详细信息")
     print("参数:   --license                 显示 LICENSE")
     print("参数:   --qrcode-login            二维码登录")
+    print("参数:   --no-auto-search          不自动搜索无法解析的 url")
+    print("参数:   --license                 查看 license")
     print("参数:   -v                        版本")
     print("参数:   -h                        帮助")
     print()
@@ -2612,7 +2615,7 @@ def _download_user_space(obj: user.User, now_file_name: str):
 
 
 def _parse_args():
-    global _require_file_type, DIC, PATH, CREDENTIAL, FFMPEG, PROXY, DEFAULT_SETTINGS, DOWNLOAD_DANMAKUS, DOWNLOAD_LIST
+    global _require_file_type, DIC, PATH, CREDENTIAL, FFMPEG, PROXY, DEFAULT_SETTINGS, DOWNLOAD_DANMAKUS, DOWNLOAD_LIST, AUTO_SEARCH
 
     if "-v" in sys.argv:
         print(Fore.BLACK + Back.WHITE + "BiliDown 版本" +  __version__ + Style.RESET_ALL)
@@ -2621,6 +2624,9 @@ def _parse_args():
     if "--license" in sys.argv:
         print(__license__)
         exit()
+
+    if "--no-auto-search" in sys.argv:
+        AUTO_SEARCH = False
 
     for i in range(len(sys.argv)):
         arg = sys.argv[i]
@@ -2674,7 +2680,7 @@ def _parse_args():
             print(Fore.GREEN + "INF: 识别到文件名为 ", PATH)
             if PATH[-1] == "#":
                 print(Fore.GREEN + "INF: 此为全局文件名设置")
-        if arg == "--dic" or arg == "-d":
+        if arg == "--dir" or arg == "-d":
             DIC = sys.argv[i + 1]
             print(Fore.GREEN + "INF: 识别到文件输出地址为 ", DIC)
             if DIC == "#default":
@@ -2736,11 +2742,10 @@ def _parse_args():
 
 
 def _main():
-    global PROXY, FFMPEG, PATH, PATHS, DIC, _require_file_type, CREDENTIAL, DOWNLOAD_DANMAKUS, DOWNLOAD_LIST, DEBUG
+    global PROXY, FFMPEG, PATH, PATHS, DIC, _require_file_type, CREDENTIAL, DOWNLOAD_DANMAKUS, DOWNLOAD_LIST, DEBUG, AUTO_SEARCH
     # TODO: INFO
     _print_banner()
     print(Fore.LIGHTMAGENTA_EX + "BiliDown: 哔哩哔哩命令行下载器")
-    print(Fore.LIGHTMAGENTA_EX + "Powered by Bilibili API")
     print(Fore.LIGHTMAGENTA_EX + "By Nemo2011<yimoxia@outlook.com>")
 
     if "-h" in sys.argv:
@@ -2774,11 +2779,22 @@ def _main():
         except Exception as e:
             raise e
         if download_object == -1:
-            print(Fore.RED + "ERR: 无法获取链接信息。请检查是否有拼写错误。", Style.RESET_ALL)
-            nsupport += 1
-            print(Fore.CYAN + "----------完成下载----------")
-            cnt += 1
-            continue
+            if not AUTO_SEARCH:
+                print(Fore.RED + "ERR: 无法获取链接信息。请检查是否有拼写错误。", Style.RESET_ALL)
+                nsuccess += 1
+                print(Fore.CYAN + "----------完成下载----------")
+                cnt += 1
+                continue
+            else:
+                v = sync(get_item(link, GetItemObjectType.VIDEO))
+                if v == -1:
+                    print(Fore.RED + "ERR: 无法获取链接信息。请检查是否有拼写错误。", Style.RESET_ALL)
+                    nsuccess += 1
+                    print(Fore.CYAN + "----------完成下载----------")
+                    cnt += 1
+                    continue
+                print(Fore.GREEN + "INF: 自动搜索为 " + sync(v.get_info())["title"] + f"({v.get_bvid()})")
+                download_object = [v, ResourceType.VIDEO]
         obj = download_object[0]
         resource_type = download_object[1]
         if resource_type == ResourceType.VIDEO:
