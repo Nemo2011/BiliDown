@@ -1357,10 +1357,15 @@ def _download_episode(obj: bangumi.Episode, now_file_name: str):
     print(Fore.GREEN + "INF: 视频 AID: ", obj.get_aid())
     title = sync(obj.get_bangumi().get_meta())["media"]["title"]
     vinfo = {"title": sync(obj.get_episode_info())["h1Title"]}
+    have_episode_in_list = False
     epcnt = 0
-    for ep in sync(obj.get_episode_info())["mediaInfo"]["episodes"]:
-        if ep["id"] == obj.get_epid():
-            epcnt = int(ep["title"])
+    for ep in sync(obj.get_episode_info())["epList"]:
+        epcnt += 1
+        if ep["aid"] == obj.get_aid():
+            have_episode_in_list = True
+            break
+    if not have_episode_in_list:
+        epcnt = 0
     vtitle = vinfo["title"]
     print(Fore.GREEN + f"INF: {title} 第{epcnt}集 {vtitle}")
     print(Fore.GREEN + f"INF: 正在获取下载地址")
