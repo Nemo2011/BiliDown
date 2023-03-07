@@ -688,7 +688,7 @@ import json
 import os
 import sys
 import time
-from typing import List, Union
+from typing import Dict, List, Union, Any
 
 import httpx
 import keyboard
@@ -703,7 +703,6 @@ PATHS = []
 RPATH = ""
 DIC = "."
 FFMPEG = "ffmpeg"
-DEFAULT_SETTINGS = False
 VIDEO_QUALITY = {
     126: "杜比视界",
     125: "真彩 HDR",
@@ -732,7 +731,7 @@ ________   ___   ___        ___          |   |
                                           \_/
 """
 DEBUG = False
-DEFAULT_SETTINGS = {
+DEFAULT_SETTINGS: Dict[str, Union[str, bool]] = {
     "on": False,
     "p": "",
     "vq": "",
@@ -747,23 +746,23 @@ AUTO_SEARCH = True
 init(autoreset=True)
 
 
-def _ask_settings_download(question: str):
+def _ask_settings_download(question: str) -> str:
     global DEFAULT_SETTINGS, DOWNLOAD_LIST
     if "下载的分 P" in question and DOWNLOAD_LIST:
         return "all"
     if DEFAULT_SETTINGS["on"]:
         if "下载的分 P" in question:
-            return DEFAULT_SETTINGS["p"]
+            return DEFAULT_SETTINGS["p"] # type: ignore
         if "请选择清晰度对应数字" in question:
-            return DEFAULT_SETTINGS["vq"]
+            return DEFAULT_SETTINGS["vq"] # type: ignore
         if "请选择视频编码" in question:
-            return DEFAULT_SETTINGS["vc"]
+            return DEFAULT_SETTINGS["vc"] # type: ignore
         if "请选择音质" in question:
-            return DEFAULT_SETTINGS["aq"]
+            return DEFAULT_SETTINGS["aq"] # type: ignore
         if "请输入想要下载的格式" in question:
-            return DEFAULT_SETTINGS["at"]
+            return DEFAULT_SETTINGS["at"] # type: ignore
         if "下载的资源" in question:
-            return DEFAULT_SETTINGS["rt"]
+            return DEFAULT_SETTINGS["rt"] # type: ignore
         return ""
     else:
         return input(question)
@@ -777,7 +776,7 @@ def _download(url: str, out: str, description: str):
     resp = requests.get(
         url,
         headers={"User-Agent": "Mozilla/5.0", "Referer": "https://www.bilibili.com"},
-        proxies={"all://": PROXY},
+        proxies={"all://": PROXY}, # type: ignore
         stream=True,
     )
     resp.raise_for_status()
@@ -985,7 +984,7 @@ def _download_video(obj: video.Video, now_file_name: str):
         if download_p1 == -1:
             print(Fore.GREEN + f"INF: 已选择所有分 P")
         else:
-            print(Fore.GREEN + f"INF: 已选择 P{p}, 分 p 编号 {sync(obj.get_cid(int(p) - 1))}")
+            print(Fore.GREEN + f"INF: 已选择 P{p}, 分 p 编号 {sync(obj.get_cid(int(p) - 1))}") # type: ignore
     else:
         download_p1 = 0
     if download_p1 > -1:
@@ -1832,12 +1831,11 @@ def _download_cheese_video(obj: cheese.CheeseVideo, now_file_name: str):
                 RNAME = vmeta["title"] + f" - 课程 EP{obj.get_epid()}({title}).mp4"
             else:
                 RNAME = (
-                    now_file_name.replace("{bvid}", obj.get_bvid())
-                    .replace("{aid}", str(obj.get_aid()))
+                    now_file_name.replace("{aid}", str(obj.get_aid()))
                     .replace("{owner}", vinfo["up_info"]["uname"])
                     .replace("{uid}", str(vinfo["up_info"]["mid"]))
                     .replace("{title}", vmeta["title"])
-                    .replace("{cheese_id}", str(obj.get_bangumi().get_season_id()))
+                    .replace("{cheese_id}", str(obj.get_cheese().get_season_id()))
                     .replace("{cheese_name}", vinfo["title"])
                     .replace("{cheese_ep}", str(epcnt))
                     .replace("{cheese_epid}", str(obj.get_epid()))
@@ -1878,12 +1876,11 @@ def _download_cheese_video(obj: cheese.CheeseVideo, now_file_name: str):
                 RNAME = vmeta["title"] + f" - 课程 EP{obj.get_epid()}({title}).mp4"
             else:
                 RNAME = (
-                    now_file_name.replace("{bvid}", obj.get_bvid())
-                    .replace("{aid}", str(obj.get_aid()))
+                    now_file_name.replace("{aid}", str(obj.get_aid()))
                     .replace("{owner}", vinfo["up_info"]["uname"])
                     .replace("{uid}", str(vinfo["up_info"]["mid"]))
                     .replace("{title}", vmeta["title"])
-                    .replace("{cheese_id}", str(obj.get_bangumi().get_season_id()))
+                    .replace("{cheese_id}", str(obj.get_cheese().get_season_id()))
                     .replace("{cheese_name}", vinfo["title"])
                     .replace("{cheese_ep}", str(epcnt))
                     .replace("{cheese_epid}", str(obj.get_epid()))
@@ -2000,12 +1997,11 @@ def _download_cheese_video(obj: cheese.CheeseVideo, now_file_name: str):
                 RNAME = vmeta["title"] + f" - 课程 EP{obj.get_epid()}({title}).mp4"
             else:
                 RNAME = (
-                    now_file_name.replace("{bvid}", obj.get_bvid())
-                    .replace("{aid}", str(obj.get_aid()))
+                    now_file_name.replace("{aid}", str(obj.get_aid()))
                     .replace("{owner}", vinfo["up_info"]["uname"])
                     .replace("{uid}", str(vinfo["up_info"]["mid"]))
                     .replace("{title}", vmeta["title"])
-                    .replace("{cheese_id}", str(obj.get_bangumi().get_season_id()))
+                    .replace("{cheese_id}", str(obj.get_cheese().get_season_id()))
                     .replace("{cheese_name}", vinfo["title"])
                     .replace("{cheese_ep}", str(epcnt))
                     .replace("{cheese_epid}", str(obj.get_epid()))
@@ -2018,13 +2014,13 @@ def _download_cheese_video(obj: cheese.CheeseVideo, now_file_name: str):
             video_path = _download(
                 video_url,
                 os.path.join(DIC, "视频 - " + RNAME),
-                vinfo["title"] + f" - {obj.get_bvid()}({title} {epcnt}) - 视频",
+                vinfo["title"] + f" - av{obj.get_aid()}({title} {epcnt}) - 视频",
             )
             print(Fore.GREEN + f"INF: 开始下载音频({title} {epcnt})")
             audio_path = _download(
                 audio_url,
                 os.path.join(DIC, "音频 - " + RNAME),
-                vinfo["title"] + f" - {obj.get_bvid()}({title} {epcnt}) - 音频",
+                vinfo["title"] + f" - av{obj.get_aid()}({title} {epcnt}) - 音频",
             )
             PATHS.append(os.path.join(DIC, "视频 - " + RNAME))
             PATHS.append(os.path.join(DIC, "音频 - " + RNAME))
@@ -2037,12 +2033,11 @@ def _download_cheese_video(obj: cheese.CheeseVideo, now_file_name: str):
                 RNAME = vmeta["title"] + f" - 课程 EP{obj.get_epid()}({title}).mp4"
             else:
                 RNAME = (
-                    now_file_name.replace("{bvid}", obj.get_bvid())
-                    .replace("{aid}", str(obj.get_aid()))
+                    now_file_name.replace("{aid}", str(obj.get_aid()))
                     .replace("{owner}", vinfo["up_info"]["uname"])
                     .replace("{uid}", str(vinfo["up_info"]["mid"]))
                     .replace("{title}", vmeta["title"])
-                    .replace("{cheese_id}", str(obj.get_bangumi().get_season_id()))
+                    .replace("{cheese_id}", str(obj.get_cheese().get_season_id()))
                     .replace("{cheese_name}", vinfo["title"])
                     .replace("{cheese_ep}", str(epcnt))
                     .replace("{cheese_epid}", str(obj.get_epid()))
@@ -2186,13 +2181,17 @@ def _download_danmakus(
             if now_file_name == "#default":
                 RNAME = vmeta["title"] + f" - 课程 EP{obj.get_epid()}({title}).ass"
             else:
+                epcnt = (
+                    f"第{str(obj.get_meta()['index'] - 1)}课"
+                    if obj.get_meta()["index"] != 1
+                    else "宣导片"
+                )
                 RNAME = (
-                    now_file_name.replace("{bvid}", obj.get_bvid())
-                    .replace("{aid}", str(obj.get_aid()))
+                    now_file_name.replace("{aid}", str(obj.get_aid()))
                     .replace("{owner}", vinfo["up_info"]["uname"])
                     .replace("{uid}", str(vinfo["up_info"]["mid"]))
                     .replace("{title}", vmeta["title"])
-                    .replace("{cheese_id}", str(obj.get_bangumi().get_season_id()))
+                    .replace("{cheese_id}", str(obj.get_cheese().get_season_id()))
                     .replace("{cheese_name}", vinfo["title"])
                     .replace("{cheese_ep}", str(epcnt))
                     .replace("{cheese_epid}", str(obj.get_epid()))
@@ -2458,7 +2457,7 @@ async def _download_liveroom_stream(obj: live.LiveRoom, now_file_name: str):
         )
         RPATH = RPATH.rstrip(".mp4") + ".flv"
 
-    resp = requests.get(url, proxies={"all://": PROXY}, headers=HEADERS, stream=True)
+    resp = requests.get(url, proxies={"all://": PROXY}, headers=HEADERS, stream=True) # type: ignore
 
     with open(RPATH, "ab") as f:
         for chunk in resp.iter_content(1024):
@@ -2483,9 +2482,9 @@ async def _download_liveroom_stream(obj: live.LiveRoom, now_file_name: str):
         PATHS.append(RPATH)
     else:
         print(Fore.GREEN + "INF: 正在转换格式")
-        os.system(f'{FFMPEG} -i "{RPATH}" "{RPATH_MP4}"')
+        os.system(f'{FFMPEG} -i "{RPATH}" "{RPATH_MP4}"') # type: ignore
         os.remove(RPATH)
-        PATHS.append(RPATH_MP4)
+        PATHS.append(RPATH_MP4) # type: ignore
 
 
 def _download_article(obj: article.Article, now_file_name: str):
@@ -2494,7 +2493,7 @@ def _download_article(obj: article.Article, now_file_name: str):
     artitle = arinfo["title"]
     arowner = arinfo["author_name"]
     armid = arinfo["mid"]
-    arcvid = obj.cvid
+    arcvid = obj.get_cvid()
     print(Fore.GREEN + "INF: 专栏 cv 号 " + str(arcvid))
     print()
     print(Fore.GREEN + "INF: 专栏支持下载为 MarkDown 文件或 JSON 文件")
@@ -2757,7 +2756,7 @@ def _parse_args():
         arg = sys.argv[i]
         if arg == "--disable-filetype-check":
             print(Fore.GREEN + "INF: 识别到 disable-filetype-check, 已禁用文件后缀自动检查")
-            _require_file_type = lambda x, y: x
+            _require_file_type = lambda x, y: x # type: ignore
 
 
 def _main():
@@ -2796,7 +2795,7 @@ def _main():
         try:
             download_object = sync(parse_link(link, credential=CREDENTIAL))
         except Exception as e:
-            raise e
+            download_object = -1
         if download_object == -1:
             if not AUTO_SEARCH:
                 print(Fore.RED + "ERR: 无法获取链接信息。请检查是否有拼写错误。", Style.RESET_ALL)
@@ -2805,13 +2804,14 @@ def _main():
                 cnt += 1
                 continue
             else:
-                v = sync(get_item(link, GetItemObjectType.VIDEO))
-                if v == -1:
+                v = sync(search.search_by_type(link, search_type=search.SearchObjectType.VIDEO))
+                if len(v["result"]) == 0:
                     print(Fore.RED + "ERR: 无法获取链接信息。请检查是否有拼写错误。", Style.RESET_ALL)
                     nsuccess += 1
                     print(Fore.CYAN + "----------完成下载----------")
                     cnt += 1
                     continue
+                v = video.Video(v["result"][0]["bvid"])
                 print(
                     Fore.GREEN
                     + "INF: 自动搜索为 "
