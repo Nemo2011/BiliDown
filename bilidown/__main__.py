@@ -696,6 +696,7 @@ import requests
 from colorama import Back, Fore, Style, init
 
 from bilibili_api import *
+from bilibili_api import video, audio, favorite_list, user, bangumi, cheese, article, live, ass, settings, search
 
 PROXY = None
 PATH = "#default"
@@ -785,6 +786,8 @@ def _download(url: str, out: str, description: str):
         os.remove(out)
 
     parent = os.path.dirname(out)
+    if parent == "":
+        parent = "."
     if not os.path.exists(parent):
         os.mkdir(parent)
 
@@ -1549,7 +1552,7 @@ def _download_episode(obj: bangumi.Episode, now_file_name: str):
             print(Fore.GREEN + f"INF: 开始下载视频({title} 第{epcnt}集)")
             video_path = _download(
                 video_audio_url,
-                PATH,
+                RPATH,
                 vinfo["title"] + f" - {title}(第{epcnt}集)",
             )
             PATHS.append(RPATH)
