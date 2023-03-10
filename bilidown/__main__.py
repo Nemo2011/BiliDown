@@ -694,6 +694,7 @@ import httpx
 import keyboard
 import requests
 from colorama import Back, Fore, Style, init
+import tomllib
 
 from bilibili_api import *
 from bilibili_api import video, audio, favorite_list, user, bangumi, cheese, article, live, ass, settings, search, login
@@ -743,8 +744,36 @@ DEFAULT_SETTINGS: Dict[str, Union[str, bool]] = {
 }
 AUTO_SEARCH = True
 
+settings_template = """[auth]
+sessdata = ""
+
+[dev]
+debug = 0
+
+[network]
+proxy = ""
+
+[configuration]
+use_default = 0
+video_p = ""
+video_quality = ""
+video_codecs = ""
+audio_quality = ""
+article_format = ""
+user_resource_type = ""
+danmakus = ""
+
+[file]
+filepath = ""
+dirname = ""
+"""
+
 
 init(autoreset=True)
+
+
+def load_setting() -> None:
+    pass
 
 
 def _ask_settings_download(question: str) -> str:

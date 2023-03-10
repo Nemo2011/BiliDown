@@ -1,0 +1,22 @@
+[auth]
+sessdata = ""
+
+[dev]
+debug = 0
+
+[network]
+proxy = ""
+
+[configuration]
+use_default = 0
+video_p = ""
+video_quality = ""
+video_codecs = ""
+audio_quality = ""
+article_format = ""
+user_resource_type = ""
+danmakus = ""
+
+[file]
+filepath = ""
+dirname = ""
