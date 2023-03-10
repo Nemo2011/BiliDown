@@ -696,7 +696,7 @@ import requests
 from colorama import Back, Fore, Style, init
 
 from bilibili_api import *
-from bilibili_api import video, audio, favorite_list, user, bangumi, cheese, article, live, ass, settings, search
+from bilibili_api import video, audio, favorite_list, user, bangumi, cheese, article, live, ass, settings, search, login
 
 PROXY = None
 PATH = "#default"
