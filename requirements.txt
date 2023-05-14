@@ -1,3 +1,3 @@
 keyboard
-bilibili-api-python>=15.3.1
+bilibili-api-python>=15.4.2
 colorama
